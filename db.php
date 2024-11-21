@@ -1,13 +1,13 @@
 <?php
 $host = "localhost";
 $dbname = "crud_app";
-$username = "root"; // Ganti sesuai username database Anda
-$password = "";     // Ganti sesuai password database Anda
+$username = "crud_user";
+$password = "password123";
 
 try {
     $conn = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 } catch (PDOException $e) {
-    die("Connection failed: " . $e->getMessage());
+    echo "Connection failed: " . $e->getMessage();
 }
 ?>
