@@ -5,12 +5,12 @@
 sudo apt update && sudo apt upgrade -y
 ```
 
-#### b. **Install Komponen yang Dibutuhkan**
+#### b. **Menginstal Server Web Nginx**
 ```bash
-sudo apt install nginx mysql-server php-fpm php-mysql unzip -y
+sudo apt install nginx
 ```
 
-#### c. **Konfigurasi MySQL**
+#### c. **Menginstal MySQL untuk Mengelola Data Situs**
 1. Jalankan MySQL:
    ```bash
    sudo systemctl start mysql
@@ -26,9 +26,9 @@ sudo apt install nginx mysql-server php-fpm php-mysql unzip -y
    ```
 4. Buat database dan user untuk aplikasi CRUD:
    ```sql
-   CREATE DATABASE crud_app;
+   CREATE DATABASE crud;
    CREATE USER 'crud_user'@'localhost' IDENTIFIED BY 'password123';
-   GRANT ALL PRIVILEGES ON crud_app.* TO 'crud_user'@'localhost';
+   GRANT ALL PRIVILEGES ON crud.* TO 'crud_user'@'localhost';
    FLUSH PRIVILEGES;
    EXIT;
    ```
@@ -51,19 +51,14 @@ sudo chown -R $USER:$USER /var/www/crud-app
    ```
 3. **Sesuaikan koneksi database di file konfigurasi aplikasi (misalnya `db.php`)**:
    ```php
-   <?php
-   $host = "localhost";
-   $dbname = "crud_app";
-   $username = "crud_user";
-   $password = "password123";
+<?php
+$host = "localhost";
+$username = "crud_user";
+$password = "password123";
+$dbname = "crud";
 
-   try {
-       $conn = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
-       $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-   } catch (PDOException $e) {
-       echo "Connection failed: " . $e->getMessage();
-   }
-   ?>
+$mysqli = mysqli_connect($host, $username, $password, $dbname);
+?>
    ```
 
 ---
