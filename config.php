@@ -1,6 +1,6 @@
 <?php
 $host = "localhost";
-$dbname = "crud_app";
+$dbname = "crud_web";
 $username = "crud_user";
 $password = "password123";
 
