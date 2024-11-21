@@ -1,4 +1,3 @@
----
 
 ### 1. **Persiapkan Lingkungan di Ubuntu**
 #### a. **Update dan Upgrade Sistem**
@@ -33,8 +32,6 @@ sudo apt install nginx mysql-server php-fpm php-mysql unzip -y
    FLUSH PRIVILEGES;
    EXIT;
    ```
-
----
 
 ### 2. **Siapkan Aplikasi PHP**
 #### a. **Struktur Direktori**
