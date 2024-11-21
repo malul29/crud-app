@@ -1,36 +1,33 @@
 <?php
-include 'db.php';
-
-// Ambil semua data dari tabel users
-$stmt = $conn->query("SELECT * FROM users");
-$users = $stmt->fetchAll(PDO::FETCH_ASSOC);
+// Create database connection using config file
+include_once("config.php");
+ 
+// Fetch all users data from database
+$result = mysqli_query($mysqli, "SELECT * FROM users ORDER BY id DESC");
 ?>
-<!DOCTYPE html>
+ 
 <html>
-<head>
-    <title>CRUD App</title>
+<head>    
+    <title>Homepage</title>
 </head>
+ 
 <body>
-    <h1>CRUD Sederhana</h1>
-    <a href="create.php">Tambah User</a>
-    <table border="1">
-        <tr>
-            <th>ID</th>
-            <th>Nama</th>
-            <th>Email</th>
-            <th>Aksi</th>
-        </tr>
-        <?php foreach ($users as $user): ?>
-        <tr>
-            <td><?= $user['id'] ?></td>
-            <td><?= $user['name'] ?></td>
-            <td><?= $user['email'] ?></td>
-            <td>
-                <a href="update.php?id=<?= $user['id'] ?>">Edit</a>
-                <a href="delete.php?id=<?= $user['id'] ?>" onclick="return confirm('Yakin ingin menghapus?')">Hapus</a>
-            </td>
-        </tr>
-        <?php endforeach; ?>
+<a href="add.php">Add New User</a><br/><br/>
+ 
+    <table width='80%' border=1>
+ 
+    <tr>
+        <th>Name</th> <th>Mobile</th> <th>Email</th> <th>Update</th>
+    </tr>
+    <?php  
+    while($user_data = mysqli_fetch_array($result)) {         
+        echo "<tr>";
+        echo "<td>".$user_data['name']."</td>";
+        echo "<td>".$user_data['mobile']."</td>";
+        echo "<td>".$user_data['email']."</td>";    
+        echo "<td><a href='edit.php?id=$user_data[id]'>Edit</a> | <a href='delete.php?id=$user_data[id]'>Delete</a></td></tr>";        
+    }
+    ?>
     </table>
 </body>
 </html>
